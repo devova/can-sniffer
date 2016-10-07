@@ -6,7 +6,7 @@
 /**
  *	Example service intended to show how to use services
  *	Flowtype has been enabled for this file to showcase it's use.
- *
+ *  
  */
 export default class SampleService {
   // Define a unique identifier for the SampleService to avoid typo's when including it.

@@ -157,6 +157,15 @@ module.exports = function(ENV, options) {
       new HtmlWebpackPlugin({
         template:'./client/index.html',
         inject: 'body'
+      }),
+      new webpack.ProvidePlugin({
+        $              : "moment/moment",
+        moment         : "moment",
+        "window.moment": "moment"
+      }),
+      new webpack.ProvidePlugin({
+        _         : "lodash",
+        "window._": "lodash"
       })
     ]
   }
