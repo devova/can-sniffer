@@ -4,7 +4,8 @@ import './app.scss';
 
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
-import ngLocalStorage from 'angular-localstorage'
+import uiBootstrap from 'angular-bootstrap-npm';
+import ngLocalStorage from 'angular-localstorage';
 
 // Import base modules
 import config from './app.config';
@@ -21,7 +22,7 @@ import canMessagesColorsService from './components/canMessages/canMessagesColors
 // Import internal modules
 // import sampleModule from './features/sample';
 
-export default angular.module('canSniffer', [uirouter, ngLocalStorage])
+export default angular.module('canSniffer', [uirouter, uiBootstrap, ngLocalStorage])
   .config(config)
   .config(routes)
   .constant('AppConstants', appConstants)
