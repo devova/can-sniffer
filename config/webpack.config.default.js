@@ -159,7 +159,6 @@ module.exports = function(ENV, options) {
         inject: 'body'
       }),
       new webpack.ProvidePlugin({
-        $              : "moment/moment",
         moment         : "moment",
         "window.moment": "moment"
       }),
