@@ -21,11 +21,11 @@ export default class CanMessagesColorsService {
   }
 
   save() {
-    this.$localStorage.put('canMessagesColors', this.colors);
+    this.$localStorage.canMessagesColors = this.colors;
   }
 
   load() {
-    this.colors = this.$localStorage.get('canMessagesColors') || {};
+    this.colors = this.$localStorage.canMessagesColors || {};
   }
 }
 

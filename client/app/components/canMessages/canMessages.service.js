@@ -40,12 +40,12 @@ export default class CanMessagesService {
   }
 
   save() {
-    this.$localStorage.put('canMessagesLog', this.messages);
-    this.$localStorage.put('canTraceLog', this.traces);
+    this.$localStorage.canMessagesLog = this.messages;
+    this.$localStorage.canTraceLog = this.traces;
   }
 
   load() {
-    this.messages = this.$localStorage.get('canMessagesLog');
-    this.traces = this.$localStorage.get('canTraceLog');
+    this.messages = this.$localStorage.canMessagesLog;
+    this.traces = this.$localStorage.canTraceLog;
   }
 }
