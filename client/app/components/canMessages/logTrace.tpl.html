@@ -45,7 +45,7 @@
             style="color: {{ c.CanMessagesColors.getColor(message.id) }}">
           <td><span class="glyphicon glyphicon-tag" aria-hidden="true"
                     colorpicker
-                    ng-model="c.CanMessagesColors.all()[message.id]"></span></td>
+                    ng-model="colors()[message.id]"></span></td>
           <td>{{ message.id }}</td>
           <td>{{ message.data }}</td>
         </tr>
@@ -67,7 +67,7 @@
           <th>Period</th>
           </th>
         <tr ng-repeat="trace in c.getTrace() track by trace.id"
-            style="color: {{ CanMessagesColors.getColor(trace.id) }}">
+            style="color: {{ c.CanMessagesColors.getColor(trace.id) }}">
           <td>{{ trace.id }}</td>
           <td>{{ trace.data }}</td>
           <td>{{ trace.count }}</td>

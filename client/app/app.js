@@ -1,11 +1,13 @@
 // Import Style
 import 'bootstrap/dist/css/bootstrap.min.css'
+import 'angular-bootstrap-colorpicker/css/colorpicker.min.css'
 import './app.scss';
 
 import angular from 'angular';
 import uirouter from 'angular-ui-router';
 import uiBootstrap from 'angular-bootstrap-npm';
 import 'ngstorage/ngStorage.min';
+import 'angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min'
 
 // Import base modules
 import config from './app.config';
@@ -22,7 +24,8 @@ import canMessagesColorsService from './components/canMessages/canMessagesColors
 // Import internal modules
 // import sampleModule from './features/sample';
 
-export default angular.module('canSniffer', [uirouter, uiBootstrap, 'ngStorage'])
+export default angular.module('canSniffer', [uirouter, uiBootstrap,
+    'ngStorage', 'colorpicker.module'])
   .config(config)
   .config(routes)
   .constant('AppConstants', appConstants)

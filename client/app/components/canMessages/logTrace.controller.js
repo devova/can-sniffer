@@ -46,8 +46,9 @@ export default class LogTraceController {
     this.itemsPerPage = 2;
     this.currentPage = Math.ceil(this.totalItems / this.itemsPerPage);
 
-    // $scope.$watchCollection('CanMessagesColors.all()',
-    //   _.debounce(CanMessagesColors.save, 1000));
+    $scope.colors = () => CanMessagesColors.all();
+    $scope.$watchCollection('colors()',
+      _.debounce(() => CanMessagesColors.save(), 1000));
   }
 
   getPagedMessages() {
