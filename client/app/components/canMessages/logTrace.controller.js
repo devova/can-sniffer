@@ -37,9 +37,9 @@ export default class LogTraceController {
     this.CanMessages = CanMessages;
     this.CanMessagesColors = CanMessagesColors;
 
-    this.clear = CanMessages.clear;
-    this.save = CanMessages.save;
-    this.load = CanMessages.load;
+    this.clear = () => CanMessages.clear();
+    this.save = () => CanMessages.save();
+    this.load = () => CanMessages.load();
     this.paused = false;
 
     this.totalItems = CanMessages.all().length;
