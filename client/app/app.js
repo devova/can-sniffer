@@ -22,9 +22,9 @@ import canMessagesColorsService from './components/canMessages/canMessagesColors
 
 
 // Import internal modules
-// import sampleModule from './features/sample';
+import canStreamingModule from './features/canStreaming';
 
-export default angular.module('canSniffer', [uirouter, uiBootstrap,
+export default angular.module('canSniffer', [uirouter, uiBootstrap, canStreamingModule,
     'ngStorage', 'colorpicker.module'])
   .config(config)
   .config(routes)

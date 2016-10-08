@@ -3,7 +3,7 @@ export default class LogTraceController {
     return 'LogTraceController'
   }
 
-  constructor($scope, $timeout, CanMessages, CanMessagesColors) {
+  constructor($scope, $timeout, $localStorage, CanMessages, CanMessagesColors, CanStream) {
     'ngInject';
 
     CanMessages.push({
@@ -30,12 +30,14 @@ export default class LogTraceController {
       });
     }, 800);
 
-    this.connectionUrl = 'ws://localhost:8593';
+    this.connectionUrl = $localStorage.connectionUrl;
     this.creationDate = 1475730327136;
 
     this._ = _;
+    this.$localStorage = $localStorage;
     this.CanMessages = CanMessages;
     this.CanMessagesColors = CanMessagesColors;
+    this.CanStream = CanStream;
 
     this.clear = () => CanMessages.clear();
     this.save = () => CanMessages.save();
@@ -49,6 +51,13 @@ export default class LogTraceController {
     $scope.colors = () => CanMessagesColors.all();
     $scope.$watchCollection('colors()',
       _.debounce(() => CanMessagesColors.save(), 1000));
+
+    CanStream.onMessage((msg) => console.log(msg));
+  }
+
+  connect() {
+    this.$localStorage.connectionUrl = this.connectionUrl;
+    this.CanStream.connect(this.connectionUrl)
   }
 
   getPagedMessages() {
