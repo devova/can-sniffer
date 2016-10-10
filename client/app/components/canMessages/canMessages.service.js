@@ -21,15 +21,7 @@ export default class CanMessagesService {
     _.extend(_trace, message);
     this.traces[message.id] = _trace;
   }
-
-  parse(message) {
-    return message;
-  }
-
-  parseAndPush(message) {
-    this.push(this.parse(message));
-  }
-
+  
   trace() {
     return this.traces;
   }
