@@ -1,3 +1,6 @@
+import CanMessage from '../../features/canStreaming/CanMessage';
+import CanTrace from './CanTrace';
+
 export default class CanMessagesService {
   constructor($localStorage) {
     'ngInject';
@@ -14,11 +17,11 @@ export default class CanMessagesService {
   push(message) {
     message.time = moment();
     this.messages.push(message);
-    var _trace = this.traces[message.id] || {count: 0, time: moment()};
+    var _trace = this.traces[message.id] || new CanTrace(message);
 
     _trace.period = message.time.diff(_trace.time, 'milliseconds');
     _trace.count++;
-    _.extend(_trace, message);
+    _trace.time = message.time;
     this.traces[message.id] = _trace;
   }
   
@@ -37,7 +40,7 @@ export default class CanMessagesService {
   }
 
   load() {
-    this.messages = this.$localStorage.canMessagesLog;
-    this.traces = this.$localStorage.canTraceLog;
+    this.messages = _.map(this.$localStorage.canMessagesLog, (msg) => new CanMessage(msg));
+    this.traces = _.map(this.$localStorage.canTraceLog, (trace) => new CanTrace(trace, true));
   }
 }

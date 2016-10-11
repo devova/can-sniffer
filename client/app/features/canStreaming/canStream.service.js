@@ -14,6 +14,9 @@ export default class CanStream {
   }
 
   connect(url): string{
+    if (this.ws && this.ws.readyState == 1) {
+      return
+    }
     var ws = new WebSocket(url);
     this.ws = ws;
 

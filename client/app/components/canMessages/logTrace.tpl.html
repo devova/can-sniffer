@@ -46,13 +46,13 @@
           <td><span class="glyphicon glyphicon-tag" aria-hidden="true"
                     colorpicker
                     ng-model="colors()[message.id]"></span></td>
-          <td>{{ message.id }}</td>
+          <td>{{ message.Id }}</td>
           <td>{{ message.data }}</td>
         </tr>
       </table>
       <ul ng-if="c.paused"
           uib-pagination total-items="c.totalItems" items-per-page="c.itemsPerPage"
-          ng-model="c.currentPage" ng-change="c.getPagedMessages()"
+          ng-model="c.currentPage" ng-change="c.getMessages()" max-size="7"
           class="pagination-sm" boundary-links="true" previous-text="&lsaquo;"
           next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></ul>
     </div>
@@ -68,7 +68,7 @@
           </th>
         <tr ng-repeat="trace in c.getTrace() track by trace.id"
             style="color: {{ c.CanMessagesColors.getColor(trace.id) }}">
-          <td>{{ trace.id }}</td>
+          <td>{{ trace.Id }}</td>
           <td>{{ trace.data }}</td>
           <td>{{ trace.count }}</td>
           <td>{{ trace.period }} ms</td>

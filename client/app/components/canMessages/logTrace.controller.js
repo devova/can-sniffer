@@ -7,35 +7,12 @@ export default class LogTraceController {
               CanStream, CanMessageParser) {
     'ngInject';
 
-    CanMessages.push({
-      id  : '0x0b6',
-      data: 'd0 00 00 13 45 9f 00'
-    });
-
-    $timeout(function () {
-      CanMessages.push({
-        id  : '0x0b6',
-        data: 'd1 00 00 13 45 9f 00'
-      });
-    }, 500);
-
-    CanMessages.push({
-      id  : '0x0b7',
-      data: 'd0 00 00 13 45 9f 00'
-    });
-
-    $timeout(function () {
-      CanMessages.push({
-        id  : '0x0b7',
-        data: 'e1 00 00 13 45 9f 00'
-      });
-    }, 800);
-
     this.connectionUrl = $localStorage.connectionUrl;
     this.creationDate = 1475730327136;
 
     this._ = _;
     this.$localStorage = $localStorage;
+    this.$timeout = $timeout;
     this.CanMessages = CanMessages;
     this.CanMessagesColors = CanMessagesColors;
     this.CanStream = CanStream;
@@ -46,36 +23,43 @@ export default class LogTraceController {
     this.paused = false;
 
     this.totalItems = CanMessages.all().length;
-    this.itemsPerPage = 2;
-    this.currentPage = Math.ceil(this.totalItems / this.itemsPerPage);
+    this.itemsPerPage = 10;
+    this.currentPage = Math.ceil(this.totalItems / this.itemsPerPage) || 1;
 
     $scope.colors = () => CanMessagesColors.all();
     $scope.$watchCollection('colors()',
       _.debounce(() => CanMessagesColors.save(), 1000));
 
-    CanStream.onMessage((msg) => CanMessageParser.parse(msg));
+    CanStream.onMessage(function(msg) {
+      if (!this.paused) {
+        CanMessages.push(CanMessageParser.parse(msg));
+      }
+    }.bind(this));
+
+    // $scope.$watch('messagesLog.length', $scope.$apply);
   }
 
   connect() {
     this.$localStorage.connectionUrl = this.connectionUrl;
     this.CanStream.connect(this.connectionUrl)
     this.CanStream.send('R 126 8 0d 0e 00 00 00 00 12 ef\n');
-    this.CanStream.send('R 126 8 0f 0e 00 00 00 00 12 ef\n');
+    this.CanStream.send('R 128 8 0f 0e 00 00 00 00 12 ef\n');
+    this.$timeout(function () {
+      this.CanStream.send('R 126 8 0f 0e 00 00 00 00 12 ef\n');
+    }.bind(this), 1000);
+    this.$timeout(function () {
+      this.CanStream.send('R 128 8 0f 1e 00 00 00 00 12 ef\n');
+    }.bind(this), 2000);
   }
 
-  getPagedMessages() {
+  getMessages() {
     var all = this.CanMessages.all();
 
     this.totalItems = this.CanMessages.all().length;
     if (!this.paused) {
       this.currentPage = Math.ceil(this.totalItems / this.itemsPerPage);
     }
-    this.messagesLog = _.slice(all, (this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
-  }
-
-  getMessages() {
-    this.getPagedMessages();
-    return this.messagesLog;
+    return _.slice(all, (this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
   }
 
   getTrace() {
