@@ -47,7 +47,11 @@
                     colorpicker
                     ng-model="colors()[message.id]"></span></td>
           <td>{{ message.Id }}</td>
-          <td>{{ message.data }}</td>
+          <td>
+            <span ng-repeat="d in message.data track by $index" class="can-byte">
+              {{ d }}
+            </span>
+          </td>
         </tr>
       </table>
       <ul ng-if="c.paused"
@@ -69,7 +73,11 @@
         <tr ng-repeat="trace in c.getTrace() track by trace.id"
             style="color: {{ c.CanMessagesColors.getColor(trace.id) }}">
           <td>{{ trace.Id }}</td>
-          <td>{{ trace.data }}</td>
+          <td>
+            <span ng-repeat="d in trace.data track by $index" class="can-byte">
+              {{ d }}
+            </span>
+          </td>
           <td>{{ trace.count }}</td>
           <td>{{ trace.period }} ms</td>
         </tr>
