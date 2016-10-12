@@ -52,15 +52,15 @@ export default class CanStream {
 
   _parse(msg) {
     this.buffer += msg;
-      if (this.buffer.indexOf('\n') !== -1) {
-        var parts = this.buffer.split('\n');
+    if (this.buffer.indexOf('\n') !== -1) {
+      var parts = this.buffer.split('\n');
 
-        _.each(this.callbacks, (c) => c(parts[0]));
-        parts = _.slice(parts, 1);
-        this.buffer = parts.join('\n');
-        if (parts.length > 1) {
-          this._parse('');
-        }
+      _.each(this.callbacks, (c) => c(parts[0]));
+      parts = _.slice(parts, 1);
+      this.buffer = parts.join('\n');
+      if (parts.length > 1) {
+        this._parse('');
       }
+    }
   }
 }

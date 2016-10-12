@@ -17,7 +17,7 @@ export default class CanMessagesColorsService {
   }
 
   getColor(messageId) {
-    return this.colors[messageId] || 'black';
+    return this.colors[messageId] || '#ddeffa';
   }
 
   save() {
