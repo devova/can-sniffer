@@ -41,6 +41,9 @@ export default class CanMessagesService {
 
   load() {
     this.messages = _.map(this.$localStorage.canMessagesLog, (msg) => new CanMessage(msg));
-    this.traces = _.map(this.$localStorage.canTraceLog, (trace) => new CanTrace(trace, true));
+    this.traces = {};
+    _.forEach(this.$localStorage.canTraceLog, function(trace, id) {
+      this.traces[id] = new CanTrace(trace, true)
+    }.bind(this));
   }
 }
