@@ -1,5 +1,5 @@
 // Import Style
-import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootswatch/superhero/bootstrap.min.css'
 import 'angular-bootstrap-colorpicker/css/colorpicker.min.css'
 import './app.scss';
 
