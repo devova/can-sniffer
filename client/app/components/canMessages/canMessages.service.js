@@ -15,14 +15,17 @@ export default class CanMessagesService {
   }
 
   push(message) {
-    message.time = moment();
-    this.messages.push(message);
-    var _trace = this.traces[message.id] || new CanTrace(message);
+    var trace = this.traces[message.id] || new CanTrace(message)
 
-    _trace.period = message.time.diff(_trace.time, 'milliseconds');
-    _trace.count++;
-    _trace.time = message.time;
-    this.traces[message.id] = _trace;
+    message.time = moment()
+    message.pd = trace.d
+
+    trace.period = message.time.diff(trace.time, 'milliseconds')
+    trace.count++
+    trace.time = message.time
+    trace.addHistory(message.d)
+    this.messages.push(message)
+    this.traces[message.id] = trace
   }
   
   trace() {

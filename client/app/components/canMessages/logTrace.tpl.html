@@ -48,7 +48,9 @@
                     ng-model="colors()[message.id]"></span></td>
           <td>{{ message.Id }}</td>
           <td>
-            <span ng-repeat="d in message.data track by $index" class="can-byte">
+            <span ng-repeat="d in message.data track by $index"
+                  class="can-byte"
+                  ng-class="{ diff: message.diff($index) }">
               {{ d }}
             </span>
           </td>
@@ -74,7 +76,9 @@
             style="color: {{ c.CanMessagesColors.getColor(trace.id) }}">
           <td>{{ trace.Id }}</td>
           <td>
-            <span ng-repeat="d in trace.data track by $index" class="can-byte">
+            <span ng-repeat="d in trace.data track by $index"
+                  class="can-byte"
+                  ng-class="{ diff: trace.diff($index) }">
               {{ d }}
             </span>
           </td>
