@@ -21,6 +21,7 @@ export default class LogTraceController {
     this.save = () => CanMessages.save();
     this.load = () => CanMessages.load();
     this.paused = false;
+    this.showLog = false;
 
     this.totalItems = CanMessages.all().length;
     this.itemsPerPage = 10;

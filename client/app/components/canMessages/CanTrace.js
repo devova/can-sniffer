@@ -8,6 +8,7 @@ export default class CanTrace extends CanMessage {
       this.history = []
       this.count = 0
       this.time = moment()
+      this.favorite = false
     }
   }
 
