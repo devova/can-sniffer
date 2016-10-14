@@ -71,7 +71,7 @@
           <th>Count</th>
           <th>Period</th>
           </th>
-        <tr ng-repeat="trace in c.getTrace() track by trace.id"
+        <tr ng-repeat="trace in c.traces track by trace.id"
             style="color: {{ c.CanMessagesColors.getColor(trace.id) }}">
          <td><span ng-class="{ 'glyphicon-star': trace.favorite, 'glyphicon-star-empty': !trace.favorite }"
                    ng-click="trace.favorite = !trace.favorite"

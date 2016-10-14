@@ -19,10 +19,10 @@ export default class LogTraceController {
 
     this.clear = () => CanMessages.clear();
     this.save = () => CanMessages.save();
-    this.load = () => CanMessages.load();
     this.paused = false;
     this.showLog = false;
     this.traceHistoryState = {};
+    this.traces = {};
 
     this.totalItems = CanMessages.all().length;
     this.itemsPerPage = 10;
@@ -38,6 +38,7 @@ export default class LogTraceController {
 
         if (pmsg) {
           CanMessages.push(pmsg);
+          this.traces = this.getTraces();
         }
       }
     }.bind(this));
@@ -68,8 +69,13 @@ export default class LogTraceController {
     return _.slice(all, (this.currentPage - 1) * this.itemsPerPage, this.currentPage * this.itemsPerPage);
   }
 
-  getTrace() {
+  getTraces() {
     return this.CanMessages.trace();
+  }
+
+  load() {
+    this.CanMessages.load();
+    this.traces = this.getTraces();
   }
 
   toggleTraceHistory(traceId) {
