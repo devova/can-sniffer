@@ -22,6 +22,7 @@ export default class LogTraceController {
     this.load = () => CanMessages.load();
     this.paused = false;
     this.showLog = false;
+    this.traceHistoryState = {};
 
     this.totalItems = CanMessages.all().length;
     this.itemsPerPage = 10;
@@ -69,5 +70,9 @@ export default class LogTraceController {
 
   getTrace() {
     return this.CanMessages.trace();
+  }
+
+  toggleTraceHistory(traceId) {
+    this.traceHistoryState[traceId] = !this.traceHistoryState[traceId]
   }
 }

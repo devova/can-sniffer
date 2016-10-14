@@ -18,7 +18,8 @@ export default class CanTrace extends CanMessage {
     this.history.length = Math.min(this.history.length, MAX_HISTORY)
   }
 
-  diff(idx) {
-    return (this.history.length > 1) && (this.d[idx] !== this.history[1][idx])
+  diffMap(historyId) {
+    return (this.history.length > 1) && (historyId < this.history.length - 1) &&
+      _.map(this.history[historyId], (b, idx) => b !== this.history[historyId+1][idx])
   }
 }

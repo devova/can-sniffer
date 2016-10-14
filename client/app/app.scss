@@ -12,5 +12,24 @@ table, .table {
 .col-id {
   cursor: pointer;
 }
+.trace-history {
+  margin-bottom: 10px;
+  //background-color: rgba(0,0,0, .2);
+
+  div {
+    margin: 5px 0;
+
+    &:first-child {
+      margin-top: 0;
+      margin-bottom: 15px;
+
+      datarow{
+        -webkit-box-shadow: 0px 10px 10px -6px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 10px 10px -6px rgba(0,0,0,0.75);
+        box-shadow: 0px 10px 10px -6px rgba(0,0,0,0.75);
+      }
+    }
+  }
+}
 
 // @import 'features/sample/sample';

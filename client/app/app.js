@@ -19,6 +19,7 @@ import appConstants from 'appConstants';
 import controller from './components/canMessages/logTrace.controller';
 import canMessagesService from './components/canMessages/canMessages.service';
 import canMessagesColorsService from './components/canMessages/canMessagesColors.service';
+import dataRowDirective from './components/canMessages/dataRow/dataRow.directive';
 
 
 // Import internal modules
@@ -33,4 +34,5 @@ export default angular.module('canSniffer', [uirouter, uiBootstrap, canStreaming
   .controller(controller.UID, controller)
   .service('CanMessages', canMessagesService)
   .service('CanMessagesColors', canMessagesColorsService)
+  .directive(dataRowDirective.UID, dataRowDirective.factory)
   .name;

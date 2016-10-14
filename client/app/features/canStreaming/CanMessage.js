@@ -17,7 +17,7 @@ export default class CanMessage {
     return '0x' + ('000' + this.id.toString(16)).slice(-3);
   }
 
-  diff(idx) {
-    return this.pd && (this.d[idx] !== this.pd[idx])
+  get diff() {
+    return this.pd && _.map(this.d, (b, idx) => b !== this.pd[idx])
   }
 }

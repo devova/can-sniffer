@@ -51,7 +51,7 @@
           <td>
             <span ng-repeat="d in message.data track by $index"
                   class="can-byte"
-                  ng-class="{ diff: message.diff($index) }">
+                  ng-class="{ diff: message.diff[$index] }">
               {{ d }}
             </span>
           </td>
@@ -71,6 +71,7 @@
           <th></th>
           <th>ID</th>
           <th>Data</th>
+          <th></th>
           <th>Count</th>
           <th>Period</th>
           </th>
@@ -78,16 +79,24 @@
             style="color: {{ c.CanMessagesColors.getColor(trace.id) }}">
          <td><span ng-class="{ 'glyphicon-star': trace.favorite, 'glyphicon-star-empty': !trace.favorite }"
                    ng-click="trace.favorite = !trace.favorite"
-                   class="glyphicon" aria-hidden="true"></span></td>
+                   class="glyphicon" aria-hidden="true"></span>
+         </td>
           <td colorpicker ng-model="colors()[trace.id]" class="col-id">
             {{ trace.Id }}
           </td>
           <td>
-            <span ng-repeat="d in trace.data track by $index"
-                  class="can-byte"
-                  ng-class="{ diff: trace.diff($index) }">
-              {{ d }}
-            </span>
+            <div ng-if="!c.traceHistoryState[trace.id]">
+              <datarow ng-model="trace.d" diff-map="trace.diffMap(0)"></datarow>
+            </div>
+            <div ng-if="c.traceHistoryState[trace.id]" class="trace-history">
+              <div ng-repeat="history in trace.history track by $index">
+                <datarow ng-model="history" diff-map="trace.diffMap($index)"></datarow>
+              </div>
+            </div>
+          </td>
+          <td><span ng-class="{ 'glyphicon-chevron-up': c.traceHistoryState[trace.id], 'glyphicon-chevron-down': !c.traceHistoryState[trace.id] }"
+                    ng-click="c.toggleTraceHistory(trace.id)"
+                    class="glyphicon" aria-hidden="true"></span>
           </td>
           <td>{{ trace.count }}</td>
           <td>{{ trace.period }} ms</td>

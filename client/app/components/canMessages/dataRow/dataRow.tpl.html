@@ -1,0 +1,5 @@
+<span ng-repeat="d in data track by $index"
+      class="can-byte"
+      ng-class="{ diff: diffMap[$index] }">
+    {{ repr(d) }}
+</span>
