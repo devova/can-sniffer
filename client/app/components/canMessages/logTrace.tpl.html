@@ -49,11 +49,7 @@
             style="color: {{ c.CanMessagesColors.getColor(message.id) }}">
           <td class="col-id">{{ message.Id }}</td>
           <td>
-            <span ng-repeat="d in message.data track by $index"
-                  class="can-byte"
-                  ng-class="{ diff: message.diff[$index] }">
-              {{ d }}
-            </span>
+            <datarow ng-model="message.d" diff-map="message.diff"></datarow>
           </td>
         </tr>
       </table>
