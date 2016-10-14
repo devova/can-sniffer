@@ -24,7 +24,8 @@ export default class CanMessagesService {
     trace.count++
     trace.time = message.time
     trace.addHistory(message.d)
-    this.messages.push(message)
+    this.messages.unshift(message)
+    this.messages.length = Math.min(this.messages.length, 500)
     this.traces[message.id] = trace
   }
   

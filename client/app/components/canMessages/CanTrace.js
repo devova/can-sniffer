@@ -18,6 +18,10 @@ export default class CanTrace extends CanMessage {
     this.history.length = Math.min(this.history.length, MAX_HISTORY)
   }
 
+  diff() {
+    return _.map(this.d, (b, idx) => _.uniq(this.history, false, (row) => row[idx]).length > 1)
+  }
+
   diffMap(historyId) {
     return (this.history.length > 1) && (historyId < this.history.length - 1) &&
       _.map(this.history[historyId], (b, idx) => b !== this.history[historyId+1][idx])

@@ -39,6 +39,7 @@ export default class LogTraceController {
         if (pmsg) {
           CanMessages.push(pmsg);
           this.traces = this.getTraces();
+          $scope.$apply();
         }
       }
     }.bind(this));
@@ -49,14 +50,14 @@ export default class LogTraceController {
   connect() {
     this.$localStorage.connectionUrl = this.connectionUrl;
     this.CanStream.connect(this.connectionUrl)
-    this.CanStream.send('R 126 8 0d 0e 00 00 00 00 12 ef\n');
-    this.CanStream.send('R 128 8 0f 0e 00 00 00 00 12 ef\n');
-    this.$timeout(function () {
-      this.CanStream.send('R 126 8 0f 0e 00 00 00 00 12 ef\n');
-    }.bind(this), 1000);
-    this.$timeout(function () {
-      this.CanStream.send('R 128 8 0f 1e 00 00 00 00 12 ef\n');
-    }.bind(this), 2000);
+    // this.CanStream.send('R 126 8 0d 0e 00 00 00 00 12 ef\n');
+    // this.CanStream.send('R 128 8 0f 0e 00 00 00 00 12 ef\n');
+    // this.$timeout(function () {
+    //   this.CanStream.send('R 126 8 0f 0e 00 00 00 00 12 ef\n');
+    // }.bind(this), 1000);
+    // this.$timeout(function () {
+    //   this.CanStream.send('R 128 8 0f 1e 00 00 00 00 12 ef\n');
+    // }.bind(this), 2000);
   }
 
   getMessages() {

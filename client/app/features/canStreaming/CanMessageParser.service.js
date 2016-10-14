@@ -7,7 +7,7 @@ export default class CanMessageParser {
 
   constructor() {
     'ngInject';
-    this.pattern = /^R\s([0-9a-fA-F]{1,5})\s(\d{1,3})\s(([0-9a-fA-F]{2}\s?)+)/;
+    this.pattern = new RegExp(/^R\s([0-9a-fA-F]{1,5})\s(\d{1,3})\s(([0-9a-fA-F]{2}\s?)+)/);
   }
 
   parse(msg) {

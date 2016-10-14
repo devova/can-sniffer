@@ -82,7 +82,7 @@
           </td>
           <td>
             <div ng-if="!c.traceHistoryState[trace.id]">
-              <datarow ng-model="trace.d" diff-map="trace.diffMap(0)"></datarow>
+              <datarow ng-model="trace.d" diff-map="trace.diff()"></datarow>
             </div>
             <div ng-if="c.traceHistoryState[trace.id]" class="trace-history">
               <div ng-repeat="history in trace.history track by $index">
