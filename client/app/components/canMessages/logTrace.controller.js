@@ -3,7 +3,7 @@ export default class LogTraceController {
     return 'LogTraceController'
   }
 
-  constructor($scope, $timeout, $localStorage, CanMessages, CanMessagesColors,
+  constructor($scope, $timeout, $localStorage, Hotkeys, CanMessages, CanMessagesColors,
               CanStream, CanMessageParser) {
     'ngInject';
 
@@ -13,6 +13,7 @@ export default class LogTraceController {
     this.$scope = $scope;
     this.$localStorage = $localStorage;
     this.$timeout = $timeout;
+    this.Hotkeys = Hotkeys;
     this.CanMessages = CanMessages;
     this.CanMessagesColors = CanMessagesColors;
     this.CanStream = CanStream;
@@ -44,6 +45,7 @@ export default class LogTraceController {
       }
     }.bind(this));
 
+    this.registerHotkeys();
     // $scope.$watch('messagesLog.length', $scope.$apply);
   }
 
@@ -87,9 +89,17 @@ export default class LogTraceController {
     this.traceHistoryState[traceId] = !this.traceHistoryState[traceId]
   }
 
+  toggleLog() {
+    this.showLog = !this.showLog
+  }
+
   clear() {
     this.traces = {}
     this.CanMessages.clear()
+  }
+
+  pause() {
+    this.paused = !this.paused
   }
 
   selectMessage(message, data) {
@@ -101,5 +111,37 @@ export default class LogTraceController {
 
   isSelected(message, data) {
     return this.selectedMessage && (message.id == this.selectedMessage.id) && _.eq(data || message.d, this.selectedMessage.d)
+  }
+
+  registerHotkeys() {
+    // Create simple hotkey object
+    var hotkeys = [
+      {
+        key: ['l'],
+        callback: () => this.toggleLog()
+      },
+      {
+        key: ['p'],
+        callback: () => this.pause()
+      },
+      {
+        key: ['c'],
+        callback: () => this.clear()
+      },
+      {
+        key: ['ctrl+s', 's'],
+        callback: () => this.save()
+      },
+      {
+        key: ['ctrl+o', 'o'],
+        callback: () => this.load()
+      }
+    ]
+
+    hotkeys = _.map(hotkeys, (k) => this.Hotkeys.createHotkey(k));
+    _.each(hotkeys, (k) => this.Hotkeys.registerHotkey(k));
+    this.$scope.$on('$destroy', function() {
+      _.each(hotkeys, (k) => this.Hotkeys.deregisterHotkey(k))
+    }.bind(this));
   }
 }

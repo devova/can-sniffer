@@ -9,6 +9,7 @@ import uirouter from 'angular-ui-router';
 import uiBootstrap from 'angular-bootstrap-npm';
 import 'ngstorage/ngStorage.min';
 import 'angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min'
+import 'angular-hotkeys-light/angular-hotkeys-light.min'
 
 // Import base modules
 import config from './app.config';
@@ -27,7 +28,7 @@ import dataRowDirective from './components/canMessages/dataRow/dataRow.directive
 import canStreamingModule from './features/canStreaming';
 
 export default angular.module('canSniffer', [uirouter, uiBootstrap, canStreamingModule,
-    'ngStorage', 'colorpicker.module'])
+    'ngStorage', 'colorpicker.module', 'fps.hotkeys'])
   .config(config)
   .config(routes)
   .constant('AppConstants', appConstants)
