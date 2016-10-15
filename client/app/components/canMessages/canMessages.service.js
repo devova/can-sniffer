@@ -8,6 +8,7 @@ export default class CanMessagesService {
     this.$localStorage = $localStorage;
     this.messages = [];
     this.traces = {};
+    this.tracesChangeValue = {};
   }
 
   all() {
@@ -30,7 +31,7 @@ export default class CanMessagesService {
   }
   
   trace() {
-    return this.traces;
+    return _.sortBy(_.values(this.traces), (trace) => 100 - this.tracesChangeValue[trace.id]);
   }
 
   clear() {
@@ -49,5 +50,12 @@ export default class CanMessagesService {
     _.forEach(this.$localStorage.canTraceLog, function(trace, id) {
       this.traces[id] = new CanTrace(trace, true)
     }.bind(this));
+  }
+  
+  diff(trace) {
+    var diff = trace.diff
+
+    this.tracesChangeValue[trace.id] = _.sum(diff)
+    return diff
   }
 }

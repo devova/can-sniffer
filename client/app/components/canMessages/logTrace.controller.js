@@ -10,15 +10,15 @@ export default class LogTraceController {
     this.connectionUrl = $localStorage.connectionUrl;
     this.creationDate = 1475730327136;
 
-    this._ = _;
+    this.$scope = $scope;
     this.$localStorage = $localStorage;
     this.$timeout = $timeout;
     this.CanMessages = CanMessages;
     this.CanMessagesColors = CanMessagesColors;
     this.CanStream = CanStream;
 
-    this.clear = () => CanMessages.clear();
     this.save = () => CanMessages.save();
+    this.diff = (trace) => CanMessages.diff(trace);
     this.paused = false;
     this.showLog = false;
     this.traceHistoryState = {};
@@ -77,9 +77,18 @@ export default class LogTraceController {
   load() {
     this.CanMessages.load();
     this.traces = this.getTraces();
+    this.$timeout(function() {
+      this.traces = this.getTraces()
+      this.$scope.$apply()
+    }.bind(this));
   }
 
   toggleTraceHistory(traceId) {
     this.traceHistoryState[traceId] = !this.traceHistoryState[traceId]
+  }
+
+  clear() {
+    this.traces = {}
+    this.CanMessages.clear()
   }
 }
