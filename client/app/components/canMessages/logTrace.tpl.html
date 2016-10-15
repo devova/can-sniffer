@@ -82,11 +82,19 @@
           </td>
           <td>
             <div ng-if="!c.traceHistoryState[trace.id]">
-              <datarow ng-model="trace.d" diff-map="c.diff(trace)"></datarow>
+              <datarow
+                      ng-model="trace.d"
+                      diff-map="c.diff(trace)"
+                      ng-click="c.selectMessage(trace)"
+                      ng-class="{ selected: c.isSelected(trace) }"></datarow>
             </div>
             <div ng-if="c.traceHistoryState[trace.id]" class="trace-history">
               <div ng-repeat="history in trace.history track by $index">
-                <datarow ng-model="history" diff-map="trace.diffMap($index)"></datarow>
+                <datarow
+                        ng-model="history"
+                        diff-map="trace.diffMap($index)"
+                        ng-click="c.selectMessage(trace, trace.history[$index])"
+                        ng-class="{ selected: c.isSelected(trace, trace.history[$index])) }"></datarow>
               </div>
             </div>
           </td>

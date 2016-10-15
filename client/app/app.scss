@@ -3,14 +3,25 @@ table, .table {
 }
 
 .can-byte {
-	padding: 2px 5px;
-	background-color: black;
+  padding: 2px 0 2px 8px;
+  background-color: black;
+  border-right: 1px dotted #4e5d6c;
+  &:last-child {
+    padding-right: 8px;
+    border-right: 0;
+  }
 }
 .diff {
     background-color: brown;
 }
 .col-id {
   cursor: pointer;
+}
+datarow {
+  font-family: 'Roboto Mono';
+  &.selected {
+    outline: 2px solid white;
+  }
 }
 .trace-history {
   margin-bottom: 10px;

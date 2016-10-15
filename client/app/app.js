@@ -1,6 +1,7 @@
 // Import Style
 import 'bootswatch/superhero/bootstrap.min.css'
 import 'angular-bootstrap-colorpicker/css/colorpicker.min.css'
+import 'roboto-mono-webfont/roboto-mono.min.css'
 import './app.scss';
 
 import angular from 'angular';

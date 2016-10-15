@@ -91,4 +91,15 @@ export default class LogTraceController {
     this.traces = {}
     this.CanMessages.clear()
   }
+
+  selectMessage(message, data) {
+    this.selectedMessage = _.clone(message)
+    if (data) {
+      this.selectedMessage.d = data
+    }
+  }
+
+  isSelected(message, data) {
+    return this.selectedMessage && (message.id == this.selectedMessage.id) && _.eq(data || message.d, this.selectedMessage.d)
+  }
 }
