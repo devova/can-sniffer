@@ -5,6 +5,7 @@ var _ = require('lodash');
 
 var defaultConfig = require('./webpack.config.default');
 var buildConfig = require('./webpack.config.build');
+var electronConfig = require('./webpack.config.electron');
 var moduleConfig = require('./webpack.config.module');
 var serveConfig = require('./webpack.config.serve');
 var testConfig = require('./webpack.config.test');
@@ -27,6 +28,12 @@ module.exports = function makeWebpackConfig(options) {
   switch (TYPE) {
     case 'build':
     var newConfig = buildConfig(ENV, configOptions);
+    // Make sure to apply modules plugins first
+    config.plugins = newConfig.plugins.push.apply(newConfig.plugins, config.plugins);
+    merge(config, newConfig);
+    break;
+    case 'electron':
+    var newConfig = electronConfig(ENV, configOptions);
     // Make sure to apply modules plugins first
     config.plugins = newConfig.plugins.push.apply(newConfig.plugins, config.plugins);
     merge(config, newConfig);

@@ -1,0 +1,25 @@
+<!doctype html>
+<html ng-app="canSniffer" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CAN Sniffer</title>
+    <base href="/">
+    {% for (var css in o.htmlWebpackPlugin.files.css) { %}
+    <script type="text/javascript">
+        var link = document.createElement('link');
+
+        link.setAttribute('rel', 'stylesheet');
+        link.setAttribute('href', require('path').join(__dirname, require('path').basename('{%= o.htmlWebpackPlugin.files.css[css] %}')));
+        document.head.appendChild(link);
+    </script>
+    {% } %}
+</head>
+<body>
+<ui-view></ui-view>
+{% for (var chunk in o.htmlWebpackPlugin.files.chunks) { %}
+<script type="text/javascript">
+    require('./' + require('path').basename('{%=o.htmlWebpackPlugin.files.chunks[chunk].entry%}'))
+</script>
+{% } %}
+</body>
+</html>

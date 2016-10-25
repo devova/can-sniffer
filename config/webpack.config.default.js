@@ -150,13 +150,10 @@ module.exports = function(ENV, options) {
         add: true,
         // other ng-annotate options here
       }),
-      new webpack.ResolverPlugin(
-        new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin(
-          "../bower.json", ["main"])
-      ),
       new HtmlWebpackPlugin({
         template:'./client/index.html',
-        inject: 'body'
+        inject: 'body',
+        chunks: ['app']
       }),
       new webpack.ProvidePlugin({
         moment         : "moment",
