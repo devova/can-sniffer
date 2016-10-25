@@ -7,6 +7,7 @@
     "build:dev": "webpack --bail -p --type build --env dev",
     "build:dist": "webpack --bail -p --type build  --env prod --progress",
     "build:module": "webpack --bail --type build-module --env prod --progress",
+    "build:electron": "webpack --bail --type electron --env prod --progress",
     "serve": "webpack-dev-server --inline --type serve",
     "serve:dev": "webpack-dev-server --env dev --type serve --inline",
     "serve:prod": "webpack-dev-server --env prod --type serve --inline",
@@ -24,9 +25,11 @@
     "angular-ui-router": "^0.2.15",
     "bootstrap": "^3.3.7",
     "bootswatch": "^3.3.7",
+    "electron": "^1.4.4",
     "moment": "^2.15.1",
     "ngstorage": "^0.3.11",
-    "roboto-mono-webfont": "^2.0.986"
+    "roboto-mono-webfont": "^2.0.986",
+    "webpack-target-electron-renderer": "^0.4.0"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.8",
