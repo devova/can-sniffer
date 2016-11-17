@@ -26,8 +26,10 @@ import dataRowDirective from './components/canMessages/dataRow/dataRow.directive
 
 // Import internal modules
 import canStreamingModule from './features/canStreaming';
+import kcdDatabaseModule from './features/kcdDatabase';
 
-export default angular.module('canSniffer', [uirouter, uiBootstrap, canStreamingModule,
+export default angular.module('canSniffer', [uirouter, uiBootstrap,
+    canStreamingModule, kcdDatabaseModule,
     'ngStorage', 'colorpicker.module', 'fps.hotkeys'])
   .config(config)
   .config(routes)
