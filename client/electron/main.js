@@ -1,6 +1,5 @@
-var can = require('socketcan');
-
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow} = require('electron');
+var kcdDatabase = require('./kcd-database')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -35,7 +34,7 @@ app.on('window-all-closed', () => {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   // if (process.platform !== 'darwin') {
-  //   app.quit()
+  app.quit()
   // }
 })
 

@@ -29,6 +29,7 @@
     "moment": "^2.15.1",
     "ngstorage": "^0.3.11",
     "roboto-mono-webfont": "^2.0.986",
+    "serialport": "^4.0.6",
     "socketcan": "file:///Users/devova/PycharmProjects/node-can",
     "webpack-target-electron-renderer": "^0.4.0"
   },

@@ -1,4 +1,59 @@
-<div class="container-fluid">
-    <h4> <a ui-sref="logTrace">CAN Sniffer</a> | Database</h4>
-    <h1>hello</h1>
+<div class="container-fluid kcd-database">
+    <h4><a ui-sref="logTrace">CAN Sniffer</a> | Database</h4>
+    <div class="btn-toolbar">
+        <div class="btn-group" role="group" aria-label="">
+            <button type="button" class="btn btn-default"
+                    ng-click="c.openDialog()">
+                <u>O</u>pen
+            </button>
+            <span class="label">{{c.filename}}</span>
+        </div>
+    </div>
+    <h3 ng-hide="c.network">No KCD file loaded.</h3>
+    <div class="row" ng-if="c.network">
+        <br>
+        <div class="col-sm-6">
+            <div class="panel panel-default nodes-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Nodes</h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                    <span ng-repeat="node in c.network.nodes track by $index"
+                          ng-click="c.selectNode(node)"
+                          ng-class="{ 'label-success': node.selected === true }"
+                          class="label"> {{node.name}} </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="panel panel-default buses-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Buses</h3>
+                </div>
+                <div class="panel-body">
+                    <p>
+                    <span ng-repeat="(bus, messages) in c.network.buses track by $index"
+                          class="label label-default"> {{bus}} </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Messages</h3>
+        </div>
+        <div class="panel-body">
+            <span ng-repeat="msg in c.Messages"
+                ng-class="{ 'label-info': msg.produces, 'label-warning': msg.consumes }"
+                class="message label" >
+                {{msg.name}} <span class="badge">{{msg.id}}</span>
+            </span>
+        </div>
+    </div>
+
 </div>

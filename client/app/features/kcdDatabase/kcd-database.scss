@@ -1,0 +1,13 @@
+.kcd-database {
+  .panel, .panel {
+    .label {
+      display: inline-block;
+      cursor: pointer;
+      margin: 2px;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
