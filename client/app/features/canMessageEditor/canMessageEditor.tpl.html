@@ -1,0 +1,22 @@
+<div class="message message-editor" id="{{ msg.id }}">
+    <div class="source">Source: <span class="label label-primary">{{ msg.producedBy }}</span>
+    </div>
+    <div class="dest">
+        Dest: <span class="label label-success" ng-repeat="consumer in msg.consumesFrom">{{ consumer }}</span>
+    <div class="description">
+        <p>{{ msg.name }}</p>
+    </div>
+    <div class="id">{{ msg.id }}</div>
+    <!--<div class="structure clearfix">-->
+        <!--<div class="bits signal-{{bit.signal}}" ng-repeat="bit in msg.bits track by $index" ng-class="{ 'text-warning': !bit.tmp }">{{ bit.char }}</div>-->
+    <!--</div>-->
+    <div class="structure clearfix margin-{{msg.signalsCount}}">
+        <div class="signal signal-{{signalIdx}} clearfix" ng-repeat="(signalIdx, bitGroup) in msg.bitGroups track by $index">
+            <div class="bits signal-{{bit.signal}}" ng-repeat="bit in bitGroup track by $index"
+                 ng-class="{ 'bit-tmp': bit.tmp }">{{ bit.char }}</div>
+            <div class="info offset-{{ msg.signalsCount - $index }}">
+                {{ msg.signals[signalIdx].name }}
+            </div>
+        </div>
+    </div>
+</div>

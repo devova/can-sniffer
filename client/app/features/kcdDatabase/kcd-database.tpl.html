@@ -50,9 +50,11 @@
         <div class="panel-body">
             <span ng-repeat="msg in c.Messages"
                 ng-class="{ 'label-info': msg.produces, 'label-warning': msg.consumes }"
+                ng-click="c.selectMsg(msg)"
                 class="message label" >
                 {{msg.name}} <span class="badge">{{msg.id}}</span>
             </span>
+            <can-message-editor ng-model="c.selectedMsg"></can-message-editor>
         </div>
     </div>
 

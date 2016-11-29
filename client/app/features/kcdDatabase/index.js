@@ -5,8 +5,9 @@ import uirouter from 'angular-ui-router';
 
 import routes from './kcd-database.routes'
 import kcdDatabaseController from './kcd-database.controller'
+import canMessageEditorModule from '../canMessageEditor'
 
-export default angular.module('kcd.database', ['ngStorage'])
+export default angular.module('kcd.database', [canMessageEditorModule,'ngStorage'])
   .config(routes)
   .controller(kcdDatabaseController.UID, kcdDatabaseController)
   .name;

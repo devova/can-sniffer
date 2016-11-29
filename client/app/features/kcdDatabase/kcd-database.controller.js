@@ -36,10 +36,20 @@ export default class KcdDatabaseController {
     var self = this;
 
     console.log(value);
-    _.each(value.buses, function(bus, busName) {
-      _.each(bus.messages, function(message) {
-        message.busName = busName;
+    _.map(value.buses, function(bus, busName) {
+      _.map(bus.messages, function(message) {
+        _.defaults(message, {
+          busName: busName,
+          producedBy: null,
+          consumesFrom: {},
+        });
         self.Messages[message.id] = message;
+      })
+    });
+    _.map(value.nodes, function (node) {
+      _.map(node.buses, function (bus) {
+        _.map(bus.produces, (id) => self.Messages[id].producedBy = node.name);
+        _.map(bus.consumes, (msg) => self.Messages[msg.id].consumesFrom[msg.signal_name] = node.name);
       })
     });
     this._network = value
@@ -49,16 +59,24 @@ export default class KcdDatabaseController {
     ipcRenderer.send('KcdDatabase:open-database');
   }
 
-  selectNode(node) {
+  extendByNode(node) {
     var self = this;
 
+    _.map(node.buses, function (bus) {
+      _.map(bus.produces, (id) => self.Messages[id].produces = true);
+      _.map(bus.consumes, (msg) => self.Messages[msg.id].consumes = true);
+    })
+  }
+
+  selectNode(node) {
     _.map(this.network.nodes, (n) => n.selected = false);
     _.map(this.Messages, (msg) => msg.produces = false);
     _.map(this.Messages, (msg) => msg.consumes = false);
-    _.map(node.buses, function (bus) {
-      _.map(bus.produces, (id) => self.Messages[id].produces = true);
-      _.map(bus.consumes, (msg) => self.Messages[msg.id].consumes = msg.signal_name);
-    })
+    this.extendByNode(node);
     node.selected = true;
+  }
+
+  selectMsg(msg) {
+    this.selectedMsg = msg;
   }
 }
