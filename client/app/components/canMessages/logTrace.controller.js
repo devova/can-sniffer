@@ -29,6 +29,19 @@ export default class LogTraceController {
     this.itemsPerPage = 10;
     this.currentPage = Math.ceil(this.totalItems / this.itemsPerPage) || 1;
 
+    this.period = {
+      minValue: 0,
+      maxValue: 2000,
+      options: {
+          floor: 0,
+          ceil: 2000,
+          step: 1
+      }
+    };
+    $scope.period = this.period;
+    $scope.$watchCollection('period',
+      _.debounce(() => this.filterByPeriod(), 200));
+
     $scope.colors = () => CanMessagesColors.all();
     $scope.$watchCollection('colors()',
       _.debounce(() => CanMessagesColors.save(), 1000));
@@ -73,16 +86,18 @@ export default class LogTraceController {
   }
 
   getTraces() {
-    return this.CanMessages.trace();
+    var period = this.period;
+
+    return _.filter(this.CanMessages.trace(),  function(trace) {
+      return trace.visible && trace.period >= period.minValue &&
+        (_.min([trace.period, period.options.ceil]) <= period.maxValue)
+    });
   }
 
   load() {
     this.CanMessages.load();
     this.traces = this.getTraces();
-    this.$timeout(function() {
-      this.traces = this.getTraces()
-      this.$scope.$apply()
-    }.bind(this));
+    this.$scope.$apply();
   }
 
   toggleTraceHistory(traceId) {
@@ -105,13 +120,20 @@ export default class LogTraceController {
   excludeExisting() {
     _.each(this.traces, function (trace) {
       trace.excluded = true;
-    })
+    });
+    this.traces = this.getTraces()
   }
   
   showAll() {
-    _.each(this.traces, function (trace) {
+    _.each(this.CanMessages.trace(), function (trace) {
       trace.excluded = false;
-    })
+    });
+    this.traces = this.getTraces()
+  }
+
+  filterByPeriod() {
+    this.traces = this.getTraces()
+    this.$scope.$apply();
   }
 
   selectMessage(message, data) {

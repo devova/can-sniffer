@@ -2,15 +2,24 @@ import CanMessage from '../../features/canStreaming/CanMessage'
 const MAX_HISTORY = 10
 
 export default class CanTrace extends CanMessage {
-  constructor(initData, stored) {
+  constructor(initData, stored, FavoritesService) {
     super(initData)
     if (!stored) {
       this.history = []
       this.count = 0
       this.time = moment()
-      this.favorite = false
       this.excluded = false
     }
+
+    this.FavoritesService = FavoritesService
+  }
+
+  get favorite() {
+    return this.FavoritesService.isFavorite(this.id)
+  }
+
+  toggleFavorite() {
+    return this.FavoritesService.toggleFavorite(this.id)
   }
 
   addHistory(data) {

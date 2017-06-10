@@ -2,10 +2,11 @@ import CanMessage from '../../features/canStreaming/CanMessage';
 import CanTrace from './CanTrace';
 
 export default class CanMessagesService {
-  constructor($localStorage) {
+  constructor($localStorage, FavoritesService) {
     'ngInject';
 
     this.$localStorage = $localStorage;
+    this.FavoritesService = FavoritesService;
     this.messages = [];
     this.traces = {};
     this.tracesChangeValue = {};
@@ -16,7 +17,7 @@ export default class CanMessagesService {
   }
 
   push(message) {
-    var trace = this.traces[message.id] || new CanTrace(message)
+    var trace = this.traces[message.id] || new CanTrace(message, false, this.FavoritesService)
     if (!trace.visible) {
       return
     }
@@ -34,7 +35,7 @@ export default class CanMessagesService {
   }
   
   trace() {
-    return _.sortBy(_.values(this.traces), (trace) => 100 - this.tracesChangeValue[trace.id]);
+    return _.sortBy(_.values(this.traces), (trace) => 1000 - this.tracesChangeValue[trace.id]);
   }
 
   clear() {
@@ -51,7 +52,7 @@ export default class CanMessagesService {
     this.messages = _.map(this.$localStorage.canMessagesLog, (msg) => new CanMessage(msg));
     this.traces = {};
     _.forEach(this.$localStorage.canTraceLog, function(trace, id) {
-      this.traces[id] = new CanTrace(trace, true)
+      this.traces[id] = new CanTrace(trace, true, this.FavoritesService)
     }.bind(this));
   }
   

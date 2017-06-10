@@ -22,6 +22,7 @@
     "angular-hotkeys-light": "^1.1.1",
     "angular-localstorage": "^1.1.1",
     "angular-ui-router": "^0.2.15",
+    "angularjs-slider": "^6.2.2",
     "bootstrap": "^3.3.7",
     "bootswatch": "^3.3.7",
     "moment": "^2.15.1",
