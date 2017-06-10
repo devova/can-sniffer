@@ -17,6 +17,9 @@ export default class CanMessagesService {
 
   push(message) {
     var trace = this.traces[message.id] || new CanTrace(message)
+    if (!trace.visible) {
+      return
+    }
 
     message.time = moment()
     message.pd = trace.d

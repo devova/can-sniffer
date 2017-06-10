@@ -35,6 +35,12 @@
       <button type="button" class="btn btn-default" ng-click="c.load()">L<u>o</u>ad
       </button>
     </div>
+    <div class="btn-group" role="group" aria-label="Excluded items">
+      <button type="button" class="btn btn-default" ng-click="c.excludeExisting()" tooltip="Exclude existing">E<u>x</u>clude
+      </button>
+      <button type="button" class="btn btn-default" ng-click="c.showAll()">Show <u>a</u>ll
+      </button>
+    </div>
   </div>
 
   <div class="row">
@@ -72,7 +78,7 @@
           <th>Period</th>
           </th>
         <tr ng-repeat="trace in c.traces track by trace.id"
-            style="color: {{ c.CanMessagesColors.getColor(trace.id) }}">
+            style="color: {{ c.CanMessagesColors.getColor(trace.id) }}" ng-class="{'ng-hide': !trace.visible}">
          <td><span ng-class="{ 'glyphicon-star': trace.favorite, 'glyphicon-star-empty': !trace.favorite }"
                    ng-click="trace.favorite = !trace.favorite"
                    class="glyphicon" aria-hidden="true"></span>

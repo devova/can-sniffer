@@ -102,6 +102,18 @@ export default class LogTraceController {
     this.paused = !this.paused
   }
 
+  excludeExisting() {
+    _.each(this.traces, function (trace) {
+      trace.excluded = true;
+    })
+  }
+  
+  showAll() {
+    _.each(this.traces, function (trace) {
+      trace.excluded = false;
+    })
+  }
+
   selectMessage(message, data) {
     this.selectedMessage = _.clone(message)
     if (data) {
@@ -135,6 +147,14 @@ export default class LogTraceController {
       {
         key: ['ctrl+o', 'o'],
         callback: () => this.load()
+      },
+      {
+        key: ['ctrl+x', 'x'],
+        callback: () => this.excludeExisting()
+      },
+      {
+        key: ['ctrl+a', 'a'],
+        callback: () => this.showAll()
       }
     ]
 

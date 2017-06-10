@@ -9,6 +9,7 @@ export default class CanTrace extends CanMessage {
       this.count = 0
       this.time = moment()
       this.favorite = false
+      this.excluded = false
     }
   }
 
@@ -25,5 +26,9 @@ export default class CanTrace extends CanMessage {
   diffMap(historyId) {
     return (this.history.length > 1) && (historyId < this.history.length - 1) &&
       _.map(this.history[historyId], (b, idx) => b !== this.history[historyId+1][idx])
+  }
+
+  get visible() {
+    return !this.excluded || this.favorite
   }
 }
